@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Reveal } from "~/components/Reveal";
 import { site } from "~/content/site";
 
@@ -62,24 +64,24 @@ export function SiteFooter() {
             </li>
           </ul>
           <div className="mt-4 flex flex-wrap gap-3 text-sm">
-            <a
+            <Link
               href="/#courses"
               className="hover:text-surface-elevated transition-colors"
             >
               Programmes
-            </a>
-            <a
+            </Link>
+            <Link
               href="/#location"
               className="hover:text-surface-elevated transition-colors"
             >
               Location
-            </a>
-            <a
+            </Link>
+            <Link
               href="/#contact"
               className="hover:text-surface-elevated transition-colors"
             >
               Contact
-            </a>
+            </Link>
           </div>
         </Reveal>
       </div>

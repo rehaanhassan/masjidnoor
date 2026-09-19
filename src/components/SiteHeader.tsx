@@ -35,20 +35,20 @@ export function SiteHeader() {
           aria-label="Primary"
         >
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-ink-muted hover:text-ink text-sm font-medium transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
+          <Link
             href="/#support"
             className="bg-accent text-ink hover:bg-accent-hover rounded-md px-4 py-2 text-sm font-semibold transition-colors"
           >
             Support
-          </a>
+          </Link>
         </nav>
 
         <MobileNav links={navLinks} />
@@ -79,20 +79,20 @@ function MobileNav({
       <div className="border-line bg-surface-elevated absolute right-0 mt-3 w-56 overflow-hidden rounded-lg border shadow-lg">
         <nav className="flex flex-col py-2" aria-label="Mobile">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-ink hover:bg-primary-soft px-4 py-3 text-sm font-medium transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
+          <Link
             href="/#support"
             className="text-primary border-line hover:bg-primary-soft border-t px-4 py-3 text-sm font-semibold transition-colors"
           >
             Support the mosque
-          </a>
+          </Link>
         </nav>
       </div>
     </details>

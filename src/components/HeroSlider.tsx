@@ -11,7 +11,7 @@ export type HeroSlide = {
   alt: string;
 };
 
-export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
+export function HeroSlider({ slides }: { slides: readonly HeroSlide[] }) {
   const labelId = useId();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
