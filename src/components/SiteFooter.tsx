@@ -1,18 +1,18 @@
 import Link from "next/link";
 
 import { Reveal } from "~/components/Reveal";
+import { SiteLogo } from "~/components/SiteLogo";
 import { site } from "~/content/site";
 
 export function SiteFooter() {
-  const year = new Date().getFullYear();
-
   return (
     <footer className="bg-primary-deep text-surface-elevated/90">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
         <Reveal>
-          <p className="font-display text-surface-elevated text-2xl">
-            {site.name}
-          </p>
+          <div className="inline-flex rounded-md bg-white px-2 py-1.5">
+            <SiteLogo className="h-14 w-auto max-w-[8.5rem] object-contain sm:h-16 sm:max-w-[10rem]" />
+          </div>
+          <p className="mt-3 text-sm text-white/80">at {site.mosqueName}</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/70">
             {site.tagline}
           </p>
@@ -89,11 +89,8 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <Reveal
           variant="fade"
-          className="text-surface-elevated/50 mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"
+          className="text-surface-elevated/50 mx-auto flex max-w-6xl px-4 py-5 text-xs sm:px-6 lg:px-8"
         >
-          <p>
-            © {year} {site.name}. All rights reserved.
-          </p>
           <p>20 Cromwell Road, Luton, LU3 1DN</p>
         </Reveal>
       </div>

@@ -1,11 +1,12 @@
 import Link from "next/link";
 
 import { Reveal } from "~/components/Reveal";
-import { site } from "~/content/site";
+import { SiteLogo } from "~/components/SiteLogo";
 
 const navLinks = [
-  { label: "Programmes", href: "/#courses" },
-  { label: "Community", href: "/#testimonials" },
+  { label: "About", href: "/#about" },
+  { label: "Courses", href: "/#courses" },
+  { label: "Students", href: "/#testimonials" },
   { label: "Location", href: "/#location" },
   { label: "Contact", href: "/#contact" },
 ] as const;
@@ -21,13 +22,17 @@ export function SiteHeader() {
       </a>
       <Reveal
         variant="down"
-        className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-5 sm:px-6 lg:px-8"
+        className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 sm:gap-4 sm:px-6 sm:py-3 lg:px-8"
       >
         <Link
           href="/"
-          className="font-display text-primary text-xl tracking-tight sm:text-2xl"
+          className="flex min-w-0 shrink-0 items-center"
+          aria-label="Jāmiatus Sālihāt home"
         >
-          {site.name}
+          <SiteLogo
+            priority
+            className="h-[4.75rem] w-auto max-w-[6.25rem] object-contain object-left sm:h-24 sm:max-w-[8rem] lg:h-28 lg:max-w-[9.5rem]"
+          />
         </Link>
 
         <nav

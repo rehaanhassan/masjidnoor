@@ -30,13 +30,38 @@ export async function generateMetadata({
   const course = getCourseBySlug(slug);
 
   if (!course) {
-    return { title: "Programme" };
+    return { title: "Course" };
   }
 
   return {
     title: course.title,
     description: course.description,
   };
+}
+
+function DetailList({
+  title,
+  items,
+}: {
+  title: string;
+  items: readonly string[];
+}) {
+  return (
+    <section>
+      <h2 className="font-display text-ink text-2xl tracking-tight">{title}</h2>
+      <ul className="mt-4 space-y-3">
+        {items.map((item) => (
+          <li
+            key={item}
+            className="text-ink-muted flex gap-2 text-sm leading-relaxed sm:text-base"
+          >
+            <span className="text-accent mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-current" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
 
 export default async function CoursePage({ params }: CoursePageProps) {
@@ -48,19 +73,20 @@ export default async function CoursePage({ params }: CoursePageProps) {
   }
 
   const related = getRelatedCourses(course.id);
+  const applyHref = course.applyUrl ?? course.cta.href;
 
   return (
     <>
       <SiteHeader />
 
-      <main id="main" className="pb-20 pt-28">
+      <main id="main" className="pb-20 pt-32">
         <article className="mx-auto max-w-6xl px-4 pt-6 sm:px-6 lg:px-8">
           <Reveal>
             <Link
               href="/courses"
               className="text-primary hover:text-primary-deep text-sm font-semibold underline-offset-4 hover:underline"
             >
-              ← All programmes
+              ← All courses
             </Link>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -81,19 +107,133 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </Reveal>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,0.8fr)] lg:items-start">
-            <Reveal delayMs={120} className="space-y-5">
-              {course.body.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="text-ink-muted max-w-2xl text-base leading-relaxed"
-                >
-                  {paragraph}
+            <Reveal delayMs={120} className="space-y-10">
+              <div className="space-y-5">
+                {course.body.map((paragraph) => (
+                  <p
+                    key={paragraph}
+                    className="text-ink-muted max-w-2xl text-base leading-relaxed"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+
+              {course.format ? (
+                <p className="text-ink border-accent max-w-2xl border-l-4 pl-4 text-sm leading-relaxed">
+                  {course.format}
                 </p>
-              ))}
+              ) : null}
+
+              {course.fees ? (
+                <section>
+                  <h2 className="font-display text-ink text-2xl tracking-tight">
+                    Fees
+                  </h2>
+                  <ul className="mt-4 space-y-3">
+                    {course.fees.items.map((item) => (
+                      <li
+                        key={item.label}
+                        className="text-ink flex max-w-2xl items-baseline justify-between gap-6 text-sm sm:text-base"
+                      >
+                        <span className="text-ink-muted">{item.label}</span>
+                        <span className="font-semibold">{item.amount}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {course.fees.notes?.map((note) => (
+                    <p
+                      key={note}
+                      className="text-ink-muted mt-3 max-w-2xl text-sm leading-relaxed"
+                    >
+                      {note}
+                    </p>
+                  ))}
+                </section>
+              ) : null}
+
+              {course.forWhom ? (
+                <section>
+                  <h2 className="font-display text-ink text-2xl tracking-tight">
+                    {course.id === "alimiyyah"
+                      ? "Who is the 'Ālimah Course For?"
+                      : "Who this course is for"}
+                  </h2>
+                  <p className="text-ink-muted mt-3 max-w-2xl text-base leading-relaxed">
+                    {course.forWhom.intro}
+                  </p>
+                  <ul className="mt-4 space-y-3">
+                    {course.forWhom.items.map((item) => (
+                      <li
+                        key={item}
+                        className="text-ink-muted flex gap-2 text-sm leading-relaxed sm:text-base"
+                      >
+                        <span className="text-accent mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-current" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+
+              {course.outcomes ? (
+                <DetailList
+                  title="What students will gain"
+                  items={course.outcomes}
+                />
+              ) : null}
+
+              {course.requirements ? (
+                <DetailList
+                  title="Entry requirements"
+                  items={course.requirements}
+                />
+              ) : null}
+
+              {course.admissions ? (
+                <DetailList title="Admissions process" items={course.admissions} />
+              ) : null}
+
+              {course.curriculum ? (
+                <section>
+                  <h2 className="font-display text-ink text-2xl tracking-tight">
+                    Year-by-year syllabus
+                  </h2>
+                  <p className="text-ink-muted mt-3 max-w-2xl text-sm leading-relaxed">
+                    Weekday ʿĀlimiyyah syllabus review, July 2026. Lesson order
+                    follows the published timetable.
+                  </p>
+                  <div className="mt-6 space-y-5">
+                    {course.curriculum.map((year) => (
+                      <div
+                        key={year.year}
+                        className="border-line bg-surface-elevated overflow-hidden rounded-xl border"
+                      >
+                        <h3 className="text-ink border-line border-b px-5 py-3 text-sm font-semibold tracking-wide uppercase">
+                          {year.year}
+                        </h3>
+                        <ol className="divide-line divide-y">
+                          {year.lessons.map((lesson, lessonIndex) => (
+                            <li
+                              key={`${year.year}-${lessonIndex}-${lesson}`}
+                              className="grid grid-cols-[5.5rem_1fr] items-baseline gap-3 px-5 py-2.5 text-sm"
+                            >
+                              <span className="text-ink-muted font-medium">
+                                Lesson {lessonIndex + 1}
+                              </span>
+                              <span className="text-ink">{lesson}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
             </Reveal>
 
             <Reveal delayMs={200}>
-              <aside className="border-line bg-surface-elevated rounded-2xl border p-6">
+              <aside className="border-line bg-surface-elevated rounded-2xl border p-6 lg:sticky lg:top-28">
                 <p className="text-ink text-sm font-semibold">What to expect</p>
                 <ul className="mt-4 space-y-3">
                   {course.highlights.map((item) => (
@@ -108,20 +248,21 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 </ul>
 
                 <div className="mt-6 flex flex-col gap-3">
-                  <Link
-                    href={course.cta.href}
+                  <a
+                    href={applyHref}
+                    {...(applyHref.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                     className="bg-primary text-surface-elevated hover:bg-primary-deep inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold transition-colors"
                   >
-                    {course.cta.label}
-                  </Link>
-                  <a
-                    href={site.contact.whatsappChannelUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {course.applyUrl ? "Apply online" : course.cta.label}
+                  </a>
+                  <Link
+                    href="/#contact"
                     className="border-line text-ink hover:bg-primary-soft inline-flex items-center justify-center rounded-md border px-5 py-3 text-sm font-semibold transition-colors"
                   >
-                    WhatsApp channel
-                  </a>
+                    Contact the department
+                  </Link>
                 </div>
               </aside>
             </Reveal>
@@ -138,12 +279,17 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 id="other-programmes-heading"
                 className="font-display text-ink text-2xl tracking-tight sm:text-3xl"
               >
-                Other programmes
+                Other courses
               </h2>
             </Reveal>
-            <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-8 grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3">
               {related.map((item, index) => (
-                <Reveal key={item.id} as="li" delayMs={index * 90}>
+                <Reveal
+                  key={item.id}
+                  as="li"
+                  delayMs={index * 90}
+                  className="h-full"
+                >
                   <CourseCard course={item} />
                 </Reveal>
               ))}

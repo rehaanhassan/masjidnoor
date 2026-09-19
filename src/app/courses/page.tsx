@@ -7,9 +7,9 @@ import { SiteHeader } from "~/components/SiteHeader";
 import { site } from "~/content/site";
 
 export const metadata: Metadata = {
-  title: "Courses & programmes",
+  title: "Courses",
   description:
-    "Qur’an classes, adult fundamentals, youth circles, and Arabic programmes at Masjid Noor Luton.",
+    "The ʿĀlimiyyah programme and other courses for sisters at Jamiatus Salihat, Masjid Noor Luton.",
 };
 
 export default function CoursesPage() {
@@ -19,7 +19,7 @@ export default function CoursesPage() {
     <>
       <SiteHeader />
 
-      <main id="main" className="pb-20 pt-28">
+      <main id="main" className="pb-20 pt-32">
         <div className="mx-auto max-w-6xl px-4 pt-6 sm:px-6 lg:px-8">
           <Reveal>
             <p className="text-primary text-sm font-semibold tracking-wide uppercase">
@@ -29,14 +29,19 @@ export default function CoursesPage() {
               {courses.title}
             </h1>
             <p className="text-ink-muted mt-4 max-w-2xl text-base leading-relaxed sm:text-lg">
-              {courses.lead} Choose a programme to see times, who it is for, and
-              how to enquire.
+              {courses.lead} Choose a course to see who it is for, how to apply,
+              and how to enquire.
             </p>
           </Reveal>
 
-          <ul className="mt-14 grid gap-5 md:grid-cols-2">
+          <ul className="mt-14 grid items-stretch gap-5 md:grid-cols-2">
             {courses.items.map((course, index) => (
-              <Reveal key={course.id} as="li" delayMs={index * 90}>
+              <Reveal
+                key={course.id}
+                as="li"
+                delayMs={index * 90}
+                className="h-full"
+              >
                 <CourseCard course={course} />
               </Reveal>
             ))}

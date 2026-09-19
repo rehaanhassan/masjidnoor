@@ -2,7 +2,7 @@ import { Reveal } from "~/components/Reveal";
 import { site } from "~/content/site";
 
 export function LocationSection() {
-  const { contact, name } = site;
+  const { contact, location, mosqueName } = site;
   const embedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(contact.mapsEmbedQuery)}&output=embed`;
 
   return (
@@ -17,12 +17,10 @@ export function LocationSection() {
             id="location-heading"
             className="font-display text-ink text-3xl tracking-tight sm:text-4xl"
           >
-            Find {name}
+            {location.title}
           </h2>
           <p className="text-ink-muted mt-3 text-base leading-relaxed">
-            We are on Cromwell Road in Luton. Visitors are welcome for the daily
-            prayers — ask a steward on arrival if you need any help finding your
-            way.
+            {location.lead}
           </p>
 
           <address className="text-ink mt-8 space-y-1 text-base leading-relaxed not-italic">
@@ -54,7 +52,7 @@ export function LocationSection() {
         <Reveal delayMs={140} variant="fade">
           <div className="border-line relative aspect-4/3 overflow-hidden rounded-lg border">
             <iframe
-              title={`Map showing ${name} at ${contact.addressLines.slice(1).join(", ")}`}
+              title={`Map showing ${mosqueName} at ${contact.addressLines.slice(1).join(", ")}`}
               src={embedSrc}
               className="h-full w-full border-0"
               loading="lazy"

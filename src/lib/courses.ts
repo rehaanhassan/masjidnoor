@@ -2,7 +2,7 @@ import { site, type Course } from "~/content/site";
 
 export const courseStatusLabel = {
   open: "Enrolment open",
-  waitlist: "Waitlist",
+  enquire: "Contact for details",
 } as const;
 
 export function getCourseBySlug(slug: string): Course | undefined {

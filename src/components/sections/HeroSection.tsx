@@ -11,7 +11,7 @@ export function HeroSection() {
       className="relative overflow-hidden"
       aria-labelledby="hero-heading"
     >
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-28 pb-16 sm:px-6 sm:pb-20 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-end lg:gap-16 lg:px-8 lg:pt-36 lg:pb-24">
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-28 pb-16 sm:px-6 sm:pt-32 sm:pb-20 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-end lg:gap-16 lg:px-8 lg:pt-36 lg:pb-24">
         <div>
           <Reveal>
             <p className="text-primary text-sm font-semibold tracking-[0.22em] uppercase">
@@ -27,7 +27,7 @@ export function HeroSection() {
             </h1>
           </Reveal>
           <Reveal delayMs={220}>
-            <p className="text-ink-muted mt-6 max-w-lg text-base leading-relaxed sm:text-lg">
+            <p className="text-ink-muted mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
               {hero.supporting}
             </p>
           </Reveal>

@@ -77,7 +77,7 @@ export function HeroSlider({ slides }: { slides: readonly HeroSlide[] }) {
       }}
     >
       <p id={labelId} className="sr-only">
-        Photos of Masjid Noor
+        Photos from Jamiatus Salihat
       </p>
 
       <div className="relative aspect-[4/3] w-full sm:aspect-[5/4]">

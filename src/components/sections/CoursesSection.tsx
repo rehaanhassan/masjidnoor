@@ -30,13 +30,13 @@ export function CoursesSection() {
             href="/courses"
             className="text-primary hover:text-primary-deep text-sm font-semibold underline-offset-4 hover:underline"
           >
-            View all programmes
+            View all courses
           </Link>
         </Reveal>
 
-        <ul className="mt-12 grid gap-5 md:grid-cols-2">
+        <ul className="mt-12 grid items-stretch gap-5 md:grid-cols-2">
           {courses.items.map((course, index) => (
-            <Reveal key={course.id} as="li" delayMs={index * 90}>
+            <Reveal key={course.id} as="li" delayMs={index * 90} className="h-full">
               <CourseCard course={course} />
             </Reveal>
           ))}

@@ -1,3 +1,4 @@
+import { ReadMore } from "~/components/ReadMore";
 import { Reveal } from "~/components/Reveal";
 import { site } from "~/content/site";
 
@@ -23,27 +24,33 @@ export function TestimonialsSection() {
           </p>
         </Reveal>
 
-        <ul className="mt-12 grid gap-8 lg:grid-cols-3">
+        <ul className="mt-12 grid items-stretch gap-5 lg:grid-cols-3">
           {testimonials.items.map((item, index) => (
             <Reveal
               key={item.name}
               as="li"
               delayMs={index * 110}
-              className="flex flex-col"
+              className="h-full"
             >
-              <blockquote className="font-display text-ink text-xl leading-snug text-balance sm:text-[1.35rem]">
-                <span aria-hidden className="text-accent mr-1">
-                  “
-                </span>
-                {item.quote}
-                <span aria-hidden className="text-accent">
-                  ”
-                </span>
-              </blockquote>
-              <footer className="mt-6">
-                <p className="text-ink text-sm font-semibold">{item.name}</p>
-                <p className="text-ink-muted text-xs">{item.role}</p>
-              </footer>
+              <article className="border-line bg-surface-elevated flex h-full flex-col rounded-2xl border p-6">
+                <blockquote className="text-ink flex-1 text-sm leading-relaxed sm:text-base">
+                  <ReadMore clampClassName="line-clamp-6 min-h-[9.75rem]">
+                    <p>
+                      <span aria-hidden className="text-accent font-display mr-1 text-xl">
+                        “
+                      </span>
+                      {item.quote}
+                      <span aria-hidden className="text-accent font-display text-xl">
+                        ”
+                      </span>
+                    </p>
+                  </ReadMore>
+                </blockquote>
+                <footer className="mt-6">
+                  <p className="text-ink text-sm font-semibold">{item.name}</p>
+                  <p className="text-ink-muted text-xs">{item.role}</p>
+                </footer>
+              </article>
             </Reveal>
           ))}
         </ul>

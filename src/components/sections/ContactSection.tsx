@@ -8,21 +8,34 @@ export function ContactSection() {
     {
       label: "Telephone",
       value: contact.phoneDisplay,
-      href: `tel:${contact.phone}`,
-      hint: "Call the mosque office",
+      hint: contact.department,
+      action: { href: `tel:${contact.phone}`, label: "Call" },
     },
     {
       label: "Email",
       value: contact.email,
-      href: `mailto:${contact.email}`,
-      hint: "Write to us anytime",
+      hint: "Alimiyyah Girls Department",
+      action: { href: `mailto:${contact.email}`, label: "Email" },
+    },
+    {
+      label: "Apply",
+      value: "ʿĀlimiyyah application",
+      hint: "Online admissions form",
+      action: {
+        href: contact.applyUrl,
+        label: "Apply",
+        external: true,
+      },
     },
     {
       label: "WhatsApp",
-      value: contact.whatsappChannelLabel,
-      href: contact.whatsappChannelUrl,
-      hint: "Official updates and reminders",
-      external: true,
+      value: "Official channel",
+      hint: "Updates and reminders",
+      action: {
+        href: contact.whatsappChannelUrl,
+        label: "Channel",
+        external: true,
+      },
     },
   ] as const;
 
@@ -45,24 +58,34 @@ export function ContactSection() {
           </p>
         </Reveal>
 
-        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+        <ul className="mt-12 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {methods.map((method, index) => (
-            <Reveal key={method.label} as="li" delayMs={index * 100}>
-              <a
-                href={method.href}
-                {...("external" in method && method.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className="border-line bg-surface-elevated hover:border-primary/40 group flex h-full flex-col rounded-2xl border p-6 transition-colors"
-              >
+            <Reveal
+              key={method.label}
+              as="li"
+              delayMs={index * 100}
+              className="h-full"
+            >
+              <article className="border-line bg-surface-elevated flex h-full min-h-[17rem] flex-col rounded-2xl border p-6">
                 <p className="text-ink-muted text-xs font-semibold tracking-[0.16em] uppercase">
                   {method.label}
                 </p>
-                <p className="font-display text-ink group-hover:text-primary mt-4 text-xl tracking-tight">
+                <p className="font-display text-ink mt-4 min-h-14 text-lg leading-snug tracking-tight wrap-break-word">
                   {method.value}
                 </p>
-                <p className="text-ink-muted mt-2 text-sm">{method.hint}</p>
-              </a>
+                <p className="text-ink-muted mt-2 min-h-10 text-sm">
+                  {method.hint}
+                </p>
+                <a
+                  href={method.action.href}
+                  {...("external" in method.action && method.action.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="bg-primary text-surface-elevated hover:bg-primary-deep mt-auto inline-flex items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition-colors"
+                >
+                  {method.action.label}
+                </a>
+              </article>
             </Reveal>
           ))}
         </ul>
